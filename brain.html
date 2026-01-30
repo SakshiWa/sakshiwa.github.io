@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Detection using CNN - Sakshi Wagh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .project-detail-section {
+            min-height: 100vh;
+            padding: 8rem 4rem 4rem 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 244, 0.9) 100%);
+        }
+        
+        .project-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+            color: var(--dark-green);
+        }
+        
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .project-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+        }
+        
+        .meta-item i {
+            color: var(--primary-green);
+        }
+        
+        .project-image-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .showcase-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .showcase-image:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .showcase-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .showcase-caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .project-content-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .project-content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-content-section p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .project-content-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section li {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .tech-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .github-link-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .github-link-section h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .project-detail-section {
+                padding: 6rem 2rem 2rem 2rem;
+            }
+            
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .project-image-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">SakshiWagh</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail-section">
+        <div class="project-detail-container">
+            <a href="index.html#projects" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+
+            <div class="project-header">
+                <h1>Brain Tumor Detection using CNN</h1>
+                <p style="color: var(--text-gray); font-size: 1.2rem; max-width: 800px; margin: 1rem auto;">
+                    Advanced deep learning solution for automated brain tumor detection from MRI scans
+                </p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>2023</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-code"></i>
+                        <span>Python, TensorFlow, Keras</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Deep Learning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Images Showcase -->
+            <div class="project-image-showcase">
+                <div class="showcase-image">
+                    <img src="Te-no_0010.jpg" alt="MRI Scan Sample 1">
+                    <div class="showcase-caption">MRI Scan - Tumor Detection</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="Te-no_0010.jpg" alt="MRI Scan Sample 2">
+                    <div class="showcase-caption">CNN Model Architecture</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="Te-no_0010.jpg" alt="Results Visualization">
+                    <div class="showcase-caption">Detection Results & Accuracy</div>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+                <p>
+                    Brain tumor detection using Convolutional Neural Networks (CNN) is a cutting-edge deep learning approach 
+                    designed to revolutionize medical imaging analysis. This project automates the identification and classification 
+                    of brain tumors from MRI scans, significantly improving both accuracy and speed compared to traditional manual 
+                    diagnosis methods.
+                </p>
+                <p>
+                    Traditional manual diagnosis is not only time-consuming but also susceptible to human error and variability 
+                    between different radiologists. CNN models, on the other hand, can learn complex visual patterns directly 
+                    from thousands of images, making them exceptionally well-suited for medical image analysis tasks.
+                </p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Automated Detection:</strong> Real-time analysis of MRI scans without human intervention</li>
+                    <li><strong>High Accuracy:</strong> Achieved 95%+ accuracy in tumor classification</li>
+                    <li><strong>Multi-class Classification:</strong> Distinguishes between different types of brain tumors</li>
+                    <li><strong>Image Preprocessing:</strong> Advanced techniques for noise reduction and image enhancement</li>
+                    <li><strong>Transfer Learning:</strong> Utilized pre-trained models for faster and more accurate results</li>
+                    <li><strong>Data Augmentation:</strong> Enhanced model robustness through synthetic data generation</li>
+                </ul>
+
+                <h3>Technical Implementation</h3>
+                <p>
+                    The project leverages state-of-the-art deep learning frameworks and implements a multi-layered CNN 
+                    architecture optimized for medical image processing. The model was trained on thousands of labeled MRI 
+                    scans, incorporating techniques such as batch normalization, dropout regularization, and early stopping 
+                    to prevent overfitting.
+                </p>
+                <p>
+                    Key technical aspects include:
+                </p>
+                <ul>
+                    <li>Custom CNN architecture with multiple convolutional and pooling layers</li>
+                    <li>Adam optimizer for efficient gradient descent</li>
+                    <li>Categorical cross-entropy loss function for multi-class classification</li>
+                    <li>Data preprocessing pipeline including normalization and resizing</li>
+                    <li>Model evaluation using confusion matrix, precision, recall, and F1-score</li>
+                </ul>
+
+                <h3>Impact & Applications</h3>
+                <p>
+                    This project has significant real-world applications in healthcare:
+                </p>
+                <ul>
+                    <li><strong>Early Detection:</strong> Enables earlier diagnosis, leading to better treatment outcomes</li>
+                    <li><strong>Reduced Workload:</strong> Assists radiologists by providing preliminary analysis</li>
+                    <li><strong>Consistent Results:</strong> Eliminates inter-observer variability in diagnosis</li>
+                    <li><strong>Accessibility:</strong> Can be deployed in areas with limited access to specialist radiologists</li>
+                    <li><strong>Cost-Effective:</strong> Reduces the need for multiple expert opinions</li>
+                </ul>
+
+                <h3>Challenges & Solutions</h3>
+                <p>
+                    During development, several challenges were addressed:
+                </p>
+                <ul>
+                    <li><strong>Data Imbalance:</strong> Resolved through SMOTE and class weighting techniques</li>
+                    <li><strong>Overfitting:</strong> Mitigated using dropout, data augmentation, and regularization</li>
+                    <li><strong>Computational Resources:</strong> Optimized using mixed precision training and batch processing</li>
+                    <li><strong>Model Interpretability:</strong> Implemented Grad-CAM for visual explanations of predictions</li>
+                </ul>
+            </div>
+
+            <!-- Technologies Used -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-tools"></i> Technologies & Tools</h2>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <h4>Python</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-brain"></i>
+                        <h4>TensorFlow</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-network-wired"></i>
+                        <h4>Keras</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>NumPy</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-table"></i>
+                        <h4>Pandas</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-image"></i>
+                        <h4>OpenCV</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Link -->
+            <div class="github-link-section">
+                <h2>View Source Code</h2>
+                <p>Explore the complete implementation, documentation, and dataset information on GitHub</p>
+                <a href="https://github.com/SakshiWa" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sakshi Wagh. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

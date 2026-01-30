@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Management System - Sakshi Wagh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .project-detail-section {
+            min-height: 100vh;
+            padding: 8rem 4rem 4rem 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 244, 0.9) 100%);
+        }
+        
+        .project-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+            color: var(--dark-green);
+        }
+        
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .project-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+        }
+        
+        .meta-item i {
+            color: var(--primary-green);
+        }
+        
+        .project-image-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .showcase-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .showcase-image:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .showcase-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .showcase-caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .project-content-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .project-content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-content-section p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .project-content-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section li {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .tech-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .github-link-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .github-link-section h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .project-detail-section {
+                padding: 6rem 2rem 2rem 2rem;
+            }
+            
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .project-image-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">SakshiWagh</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail-section">
+        <div class="project-detail-container">
+            <a href="index.html#projects" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+
+            <div class="project-header">
+                <h1>Timetable Management System</h1>
+                <p style="color: var(--text-gray); font-size: 1.2rem; max-width: 800px; margin: 1rem auto;">
+                    Full-stack web application for automated academic timetable creation and management
+                </p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>2024</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-code"></i>
+                        <span>MERN Stack</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Full Stack</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Images Showcase -->
+            <div class="project-image-showcase">
+                <div class="showcase-image">
+                    <img src="images.jpg" alt="Dashboard View">
+                    <div class="showcase-caption">Admin Dashboard</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="images.jpg" alt="Timetable View">
+                    <div class="showcase-caption">Interactive Timetable Grid</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="images.jpg" alt="Schedule Management">
+                    <div class="showcase-caption">Schedule Management Interface</div>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+                <p>
+                    The Timetable Management System is a comprehensive web-based application built using the MERN stack 
+                    (MongoDB, Express.js, React.js, and Node.js). It revolutionizes the traditional process of creating 
+                    and managing academic timetables by providing an automated, efficient, and user-friendly digital solution.
+                </p>
+                <p>
+                    Traditional manual scheduling methods are not only time-consuming but also prone to errors such as 
+                    room conflicts, teacher overlaps, and scheduling inconsistencies. This system eliminates these issues 
+                    by providing intelligent conflict detection, automated scheduling suggestions, and real-time updates 
+                    accessible to all stakeholders.
+                </p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Automated Scheduling:</strong> Intelligent algorithm for conflict-free timetable generation</li>
+                    <li><strong>Real-time Updates:</strong> Instant synchronization across all users when changes are made</li>
+                    <li><strong>Multi-user Support:</strong> Separate interfaces for administrators, teachers, and students</li>
+                    <li><strong>Conflict Detection:</strong> Automatic identification of scheduling conflicts</li>
+                    <li><strong>Resource Management:</strong> Track and allocate classrooms, labs, and equipment</li>
+                    <li><strong>Export Functionality:</strong> Download timetables in PDF, Excel, and image formats</li>
+                    <li><strong>Responsive Design:</strong> Seamless experience across desktop, tablet, and mobile devices</li>
+                    <li><strong>Search & Filter:</strong> Quick access to specific classes, teachers, or time slots</li>
+                </ul>
+
+                <h3>Technical Architecture</h3>
+                <p>
+                    The application follows a modern three-tier architecture:
+                </p>
+                <ul>
+                    <li><strong>Frontend (React.js):</strong> Dynamic single-page application with component-based architecture</li>
+                    <li><strong>Backend (Node.js + Express.js):</strong> RESTful API handling business logic and data processing</li>
+                    <li><strong>Database (MongoDB):</strong> NoSQL database for flexible data storage and retrieval</li>
+                </ul>
+
+                <h3>Core Functionalities</h3>
+                <p><strong>For Administrators:</strong></p>
+                <ul>
+                    <li>Create and manage multiple timetables for different departments</li>
+                    <li>Add/edit/delete courses, teachers, classrooms, and time slots</li>
+                    <li>Set constraints and preferences for automatic scheduling</li>
+                    <li>Generate comprehensive reports and analytics</li>
+                    <li>Manage user accounts and permissions</li>
+                </ul>
+
+                <p><strong>For Teachers:</strong></p>
+                <ul>
+                    <li>View personal teaching schedule</li>
+                    <li>Check classroom assignments</li>
+                    <li>Set availability and preferences</li>
+                    <li>Receive notifications for schedule changes</li>
+                </ul>
+
+                <p><strong>For Students:</strong></p>
+                <ul>
+                    <li>Access class schedules by semester and course</li>
+                    <li>View exam timetables</li>
+                    <li>Download personal timetables</li>
+                    <li>Receive updates on schedule modifications</li>
+                </ul>
+
+                <h3>Technical Implementation</h3>
+                <p>
+                    Key technical highlights include:
+                </p>
+                <ul>
+                    <li><strong>Authentication:</strong> JWT-based secure authentication and authorization</li>
+                    <li><strong>State Management:</strong> Redux for efficient client-side state management</li>
+                    <li><strong>API Design:</strong> RESTful APIs with proper error handling and validation</li>
+                    <li><strong>Data Modeling:</strong> Optimized MongoDB schemas for efficient queries</li>
+                    <li><strong>Scheduling Algorithm:</strong> Custom constraint-satisfaction algorithm for timetable generation</li>
+                    <li><strong>Real-time Updates:</strong> Socket.io for live notifications and updates</li>
+                </ul>
+
+                <h3>Benefits & Impact</h3>
+                <ul>
+                    <li><strong>Time Savings:</strong> Reduces timetable creation time from days to minutes</li>
+                    <li><strong>Error Reduction:</strong> Eliminates manual scheduling errors and conflicts</li>
+                    <li><strong>Accessibility:</strong> 24/7 access from any device with internet connection</li>
+                    <li><strong>Centralized Management:</strong> Single source of truth for all scheduling data</li>
+                    <li><strong>Eco-Friendly:</strong> Reduces paper usage by digitizing timetable distribution</li>
+                    <li><strong>Scalability:</strong> Can handle multiple departments and thousands of users</li>
+                </ul>
+
+                <h3>Challenges Overcome</h3>
+                <ul>
+                    <li><strong>Complex Constraints:</strong> Developed sophisticated algorithm to handle multiple scheduling rules</li>
+                    <li><strong>Performance Optimization:</strong> Implemented caching and indexing for faster data retrieval</li>
+                    <li><strong>User Experience:</strong> Designed intuitive interface for users with varying technical skills</li>
+                    <li><strong>Data Consistency:</strong> Ensured data integrity across concurrent user operations</li>
+                </ul>
+            </div>
+
+            <!-- Technologies Used -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-tools"></i> Technologies & Tools</h2>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-react"></i>
+                        <h4>React.js</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-node-js"></i>
+                        <h4>Node.js</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-server"></i>
+                        <h4>Express.js</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-leaf"></i>
+                        <h4>MongoDB</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-code"></i>
+                        <h4>REST APIs</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-lock"></i>
+                        <h4>JWT Auth</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-python"></i>
+                        <h4>Python</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-database"></i>
+                        <h4>Mongoose</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Link -->
+            <div class="github-link-section">
+                <h2>View Source Code</h2>
+                <p>Explore the complete implementation, API documentation, and setup instructions on GitHub</p>
+                <a href="https://github.com/SakshiWa" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sakshi Wagh. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

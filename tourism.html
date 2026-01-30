@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourism Website - Sakshi Wagh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .project-detail-section {
+            min-height: 100vh;
+            padding: 8rem 4rem 4rem 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 249, 244, 0.9) 100%);
+        }
+        
+        .project-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            transform: translateX(-5px);
+            color: var(--dark-green);
+        }
+        
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .project-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-gray);
+        }
+        
+        .meta-item i {
+            color: var(--primary-green);
+        }
+        
+        .project-image-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .showcase-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .showcase-image:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .showcase-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .showcase-caption {
+            padding: 1rem;
+            background: white;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        .project-content-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .project-content-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-content-section p {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .project-content-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-content-section li {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-stack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .tech-item i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .github-link-section {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .github-link-section h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .project-detail-section {
+                padding: 6rem 2rem 2rem 2rem;
+            }
+            
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .project-image-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">SakshiWagh</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail-section">
+        <div class="project-detail-container">
+            <a href="index.html#projects" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+
+            <div class="project-header">
+                <h1>Tourism Website using Bootstrap</h1>
+                <p style="color: var(--text-gray); font-size: 1.2rem; max-width: 800px; margin: 1rem auto;">
+                    Modern, responsive travel platform for exploring destinations worldwide
+                </p>
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>2023</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-code"></i>
+                        <span>HTML, CSS, JavaScript</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Images Showcase -->
+            <div class="project-image-showcase">
+                <div class="showcase-image">
+                    <img src="download.jpg" alt="Homepage">
+                    <div class="showcase-caption">Homepage Hero Section</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="download.jpg" alt="Destinations">
+                    <div class="showcase-caption">Popular Destinations Gallery</div>
+                </div>
+                <div class="showcase-image">
+                    <img src="download.jpg" alt="Mobile View">
+                    <div class="showcase-caption">Mobile Responsive Layout</div>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+                <p>
+                    The Tourism Website is a modern, fully responsive web platform designed to provide travelers with an 
+                    engaging and intuitive experience for exploring travel destinations. Built using HTML, CSS, JavaScript, 
+                    and the Bootstrap framework, this project showcases advanced front-end development skills and a deep 
+                    understanding of user experience design.
+                </p>
+                <p>
+                    The website serves as a comprehensive travel guide, featuring stunning visuals, detailed destination 
+                    information, interactive elements, and seamless navigation across all devices. Whether accessed from 
+                    a desktop, tablet, or smartphone, users enjoy a consistent and optimized browsing experience.
+                </p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li><strong>Responsive Design:</strong> Seamlessly adapts to all screen sizes using Bootstrap's grid system</li>
+                    <li><strong>Interactive Gallery:</strong> Dynamic image galleries showcasing beautiful destinations</li>
+                    <li><strong>Smooth Navigation:</strong> Intuitive menu system with smooth scrolling effects</li>
+                    <li><strong>Search Functionality:</strong> Filter destinations by location, type, or season</li>
+                    <li><strong>Booking Integration:</strong> Contact forms for inquiries and reservations</li>
+                    <li><strong>Testimonials Section:</strong> Customer reviews with carousel animations</li>
+                    <li><strong>Social Media Integration:</strong> Easy sharing of favorite destinations</li>
+                    <li><strong>Newsletter Subscription:</strong> Stay updated with latest travel deals</li>
+                </ul>
+
+                <h3>Design Philosophy</h3>
+                <p>
+                    The design focuses on creating an immersive visual experience that inspires wanderlust:
+                </p>
+                <ul>
+                    <li><strong>Visual Hierarchy:</strong> Strategic use of typography and spacing to guide user attention</li>
+                    <li><strong>Color Psychology:</strong> Vibrant colors that evoke feelings of adventure and excitement</li>
+                    <li><strong>High-Quality Imagery:</strong> Professional photographs that showcase destinations authentically</li>
+                    <li><strong>White Space:</strong> Balanced layout that prevents visual clutter</li>
+                    <li><strong>Accessibility:</strong> WCAG compliant with proper contrast ratios and alt text</li>
+                </ul>
+
+                <h3>Technical Implementation</h3>
+                <p><strong>HTML Structure:</strong></p>
+                <ul>
+                    <li>Semantic HTML5 elements for better SEO and accessibility</li>
+                    <li>Organized component-based structure</li>
+                    <li>Optimized meta tags for search engines</li>
+                    <li>Schema markup for rich snippets</li>
+                </ul>
+
+                <p><strong>CSS Styling:</strong></p>
+                <ul>
+                    <li>Bootstrap 5 framework for responsive layouts</li>
+                    <li>Custom CSS for unique branding and animations</li>
+                    <li>CSS Grid and Flexbox for advanced layouts</li>
+                    <li>CSS transitions and transforms for smooth interactions</li>
+                    <li>Media queries for fine-tuned responsive behavior</li>
+                </ul>
+
+                <p><strong>JavaScript Interactivity:</strong></p>
+                <ul>
+                    <li>Vanilla JavaScript for lightweight performance</li>
+                    <li>Dynamic content loading and filtering</li>
+                    <li>Form validation and error handling</li>
+                    <li>Smooth scroll navigation</li>
+                    <li>Image lazy loading for faster page loads</li>
+                    <li>Interactive maps integration</li>
+                </ul>
+
+                <h3>Pages & Sections</h3>
+                <ul>
+                    <li><strong>Home:</strong> Eye-catching hero section with call-to-action buttons</li>
+                    <li><strong>Destinations:</strong> Comprehensive catalog of travel locations</li>
+                    <li><strong>Tours & Packages:</strong> Detailed tour information with pricing</li>
+                    <li><strong>About Us:</strong> Company story and team introduction</li>
+                    <li><strong>Gallery:</strong> Visual showcase of destinations and experiences</li>
+                    <li><strong>Blog:</strong> Travel tips, guides, and stories</li>
+                    <li><strong>Contact:</strong> Multiple contact options and inquiry form</li>
+                </ul>
+
+                <h3>Performance Optimization</h3>
+                <ul>
+                    <li><strong>Image Optimization:</strong> Compressed images with WebP format support</li>
+                    <li><strong>Minification:</strong> Minified CSS and JavaScript for faster loading</li>
+                    <li><strong>Lazy Loading:</strong> Images load as user scrolls</li>
+                    <li><strong>CDN Integration:</strong> Bootstrap and libraries loaded from CDN</li>
+                    <li><strong>Caching Strategy:</strong> Browser caching for static assets</li>
+                </ul>
+
+                <h3>User Experience Features</h3>
+                <ul>
+                    <li><strong>Loading Animations:</strong> Smooth page transitions and loading states</li>
+                    <li><strong>Hover Effects:</strong> Interactive feedback on clickable elements</li>
+                    <li><strong>Scroll Animations:</strong> Elements animate into view as user scrolls</li>
+                    <li><strong>Mobile-First Approach:</strong> Designed for mobile, enhanced for desktop</li>
+                    <li><strong>Fast Navigation:</strong> Sticky header for quick access to menu</li>
+                </ul>
+
+                <h3>Learning Outcomes</h3>
+                <p>
+                    This project provided valuable experience in:
+                </p>
+                <ul>
+                    <li>Building production-ready responsive websites</li>
+                    <li>Working with Bootstrap framework and its components</li>
+                    <li>Implementing modern CSS techniques and animations</li>
+                    <li>Creating interactive JavaScript functionality</li>
+                    <li>Following web development best practices</li>
+                    <li>Optimizing website performance and loading speed</li>
+                    <li>Ensuring cross-browser compatibility</li>
+                </ul>
+
+                <h3>Future Enhancements</h3>
+                <ul>
+                    <li>Integration with travel APIs for real-time pricing</li>
+                    <li>User authentication and personalized recommendations</li>
+                    <li>Interactive booking system with payment gateway</li>
+                    <li>Multi-language support for international users</li>
+                    <li>Virtual tour integration using 360° photos</li>
+                    <li>Weather information for destinations</li>
+                </ul>
+            </div>
+
+            <!-- Technologies Used -->
+            <div class="project-content-section">
+                <h2><i class="fas fa-tools"></i> Technologies & Tools</h2>
+                <div class="tech-stack-grid">
+                    <div class="tech-item">
+                        <i class="fab fa-html5"></i>
+                        <h4>HTML5</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-css3-alt"></i>
+                        <h4>CSS3</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-js"></i>
+                        <h4>JavaScript</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fab fa-bootstrap"></i>
+                        <h4>Bootstrap</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive</h4>
+                    </div>
+                    <div class="tech-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>UI/UX</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Link -->
+            <div class="github-link-section">
+                <h2>View Source Code</h2>
+                <p>Explore the complete code, live demo, and documentation on GitHub</p>
+                <a href="https://github.com/SakshiWa" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sakshi Wagh. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
