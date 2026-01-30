@@ -102,189 +102,62 @@ projectCards.forEach((card, index) => {
 // Form handling with EmailJS
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
-const fileInput = document.getElementById("attachment");
-const fileList = document.getElementById("fileList");
-const fileLabel = document.getElementById("fileLabel");
-let selectedFiles = [];
 
-// Handle file selection
-fileInput.addEventListener("change", function (e) {
-  const files = Array.from(e.target.files);
-  selectedFiles = [...selectedFiles, ...files];
-  updateFileList();
-  updateFileLabel();
-});
-
-// Update file list display
-function updateFileList() {
-  fileList.innerHTML = "";
-
-  selectedFiles.forEach((file, index) => {
-    const fileItem = document.createElement("div");
-    fileItem.className = "file-item";
-
-    const fileIcon = getFileIcon(file.type);
-    const fileSize = formatFileSize(file.size);
-
-    fileItem.innerHTML = `
-      <div class="file-info">
-        <i class="${fileIcon} file-icon"></i>
-        <div class="file-details">
-          <span class="file-name">${file.name}</span>
-          <span class="file-size">${fileSize}</span>
-        </div>
-      </div>
-      <button type="button" class="file-remove" onclick="removeFile(${index})">
-        <i class="fas fa-times"></i>
-      </button>
-    `;
-
-    fileList.appendChild(fileItem);
-  });
-}
-
-// Remove file from list
-window.removeFile = function (index) {
-  selectedFiles.splice(index, 1);
-  updateFileList();
-  updateFileLabel();
-
-  // Reset file input if no files left
-  if (selectedFiles.length === 0) {
-    fileInput.value = "";
-  }
-};
-
-// Update file label text
-function updateFileLabel() {
-  if (selectedFiles.length === 0) {
-    fileLabel.textContent = "Attach Files (Optional)";
-  } else if (selectedFiles.length === 1) {
-    fileLabel.textContent = `1 file selected`;
-  } else {
-    fileLabel.textContent = `${selectedFiles.length} files selected`;
-  }
-}
-
-// Get appropriate icon based on file type
-function getFileIcon(fileType) {
-  if (fileType.startsWith("image/")) return "fas fa-image";
-  if (fileType.startsWith("video/")) return "fas fa-video";
-  if (fileType.includes("pdf")) return "fas fa-file-pdf";
-  if (fileType.includes("word") || fileType.includes("document"))
-    return "fas fa-file-word";
-  if (fileType.includes("text")) return "fas fa-file-alt";
-  return "fas fa-file";
-}
-
-// Format file size
-function formatFileSize(bytes) {
-  if (bytes === 0) return "0 Bytes";
-  const k = 1024;
-  const sizes = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + " " + sizes[i];
-}
-
-// Convert files to base64 for EmailJS
-async function filesToBase64(files) {
-  const promises = files.map((file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () =>
-        resolve({
-          name: file.name,
-          type: file.type,
-          data: reader.result.split(",")[1],
-        });
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  });
-  return Promise.all(promises);
-}
-
-contactForm.addEventListener("submit", async function (e) {
+contactForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const submitBtn = contactForm.querySelector(".btn-submit");
   submitBtn.classList.add("loading");
   submitBtn.disabled = true;
 
-  try {
-    // Get form data
-    const formData = {
-      from_name: document.getElementById("name").value,
-      from_email: document.getElementById("email").value,
-      subject: document.getElementById("subject").value,
-      message: document.getElementById("message").value,
-      to_email: "waghsakshi003@gmail.com",
-    };
+  // Get form data
+  const formData = {
+    from_name: document.getElementById("name").value,
+    from_email: document.getElementById("email").value,
+    subject: document.getElementById("subject").value,
+    message: document.getElementById("message").value,
+    to_email: "waghsakshi003@gmail.com",
+  };
 
-    // Add file attachments if any
-    if (selectedFiles.length > 0) {
-      const attachments = await filesToBase64(selectedFiles);
-      formData.attachments = attachments;
+  // Send email using EmailJS
+  emailjs
+    .send("service_2e8pg99", "template_swp4bx4", formData)
+    .then(
+      function (response) {
+        console.log("SUCCESS!", response.status, response.text);
 
-      // Create attachment info for email body
-      const fileNames = selectedFiles.map((f) => f.name).join(", ");
-      formData.message += `\n\n--- Attachments (${selectedFiles.length}) ---\n${fileNames}`;
-    }
+        // Show success message
+        formStatus.textContent =
+          "Message sent successfully! I'll get back to you soon.";
+        formStatus.className = "form-status success show";
 
-    // Send email using EmailJS
-    emailjs
-      .send("service_2e8pg99", "template_swp4bx4", formData)
-      .then(
-        function (response) {
-          console.log("SUCCESS!", response.status, response.text);
+        // Reset form
+        contactForm.reset();
 
-          // Show success message
-          formStatus.textContent =
-            "Message sent successfully! I'll get back to you soon.";
-          formStatus.className = "form-status success show";
+        // Hide status after 5 seconds
+        setTimeout(() => {
+          formStatus.classList.remove("show");
+        }, 5000);
+      },
+      function (error) {
+        console.log("FAILED...", error);
 
-          // Reset form and files
-          contactForm.reset();
-          selectedFiles = [];
-          updateFileList();
-          updateFileLabel();
+        // Show error message
+        formStatus.textContent =
+          "Oops! Something went wrong. Please try again or email me directly.";
+        formStatus.className = "form-status error show";
 
-          // Hide status after 5 seconds
-          setTimeout(() => {
-            formStatus.classList.remove("show");
-          }, 5000);
-        },
-        function (error) {
-          console.log("FAILED...", error);
-
-          // Show error message
-          formStatus.textContent =
-            "Oops! Something went wrong. Please try again or email me directly.";
-          formStatus.className = "form-status error show";
-
-          // Hide status after 5 seconds
-          setTimeout(() => {
-            formStatus.classList.remove("show");
-          }, 5000);
-        },
-      )
-      .finally(function () {
-        // Re-enable submit button
-        submitBtn.classList.remove("loading");
-        submitBtn.disabled = false;
-      });
-  } catch (error) {
-    console.error("Error processing form:", error);
-    formStatus.textContent = "Error processing attachments. Please try again.";
-    formStatus.className = "form-status error show";
-
-    submitBtn.classList.remove("loading");
-    submitBtn.disabled = false;
-
-    setTimeout(() => {
-      formStatus.classList.remove("show");
-    }, 5000);
-  }
+        // Hide status after 5 seconds
+        setTimeout(() => {
+          formStatus.classList.remove("show");
+        }, 5000);
+      },
+    )
+    .finally(function () {
+      // Re-enable submit button
+      submitBtn.classList.remove("loading");
+      submitBtn.disabled = false;
+    });
 });
 
 // Add floating animation to profile image
@@ -316,30 +189,30 @@ window.addEventListener("scroll", () => {
 });
 
 // Add cursor trail effect (optional enhancement)
-document.addEventListener("mousemove", (e) => {
-  const cursor = document.createElement("div");
-  cursor.style.position = "fixed";
-  cursor.style.width = "5px";
-  cursor.style.height = "5px";
-  cursor.style.borderRadius = "50%";
-  cursor.style.background = "rgba(45, 122, 79, 0.3)";
-  cursor.style.left = e.clientX + "px";
-  cursor.style.top = e.clientY + "px";
-  cursor.style.pointerEvents = "none";
-  cursor.style.transition = "all 0.3s ease";
-  cursor.style.zIndex = "9999";
+// document.addEventListener("mousemove", (e) => {
+//   const cursor = document.createElement("div");
+//   cursor.style.position = "fixed";
+//   cursor.style.width = "5px";
+//   cursor.style.height = "5px";
+//   cursor.style.borderRadius = "50%";
+//   cursor.style.background = "rgba(45, 122, 79, 0.3)";
+//   cursor.style.left = e.clientX + "px";
+//   cursor.style.top = e.clientY + "px";
+//   cursor.style.pointerEvents = "none";
+//   cursor.style.transition = "all 0.3s ease";
+//   cursor.style.zIndex = "9999";
 
-  document.body.appendChild(cursor);
+//   document.body.appendChild(cursor);
 
-  setTimeout(() => {
-    cursor.style.opacity = "0";
-    cursor.style.transform = "scale(2)";
-  }, 10);
+//   setTimeout(() => {
+//     cursor.style.opacity = "0";
+//     cursor.style.transform = "scale(2)";
+//   }, 10);
 
-  setTimeout(() => {
-    cursor.remove();
-  }, 300);
-});
+//   setTimeout(() => {
+//     cursor.remove();
+//   }, 300);
+// });
 
 // Active navigation link highlighting
 window.addEventListener("scroll", () => {
