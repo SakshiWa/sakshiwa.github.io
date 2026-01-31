@@ -256,15 +256,6 @@ window.addEventListener("load", () => {
   setTimeout(typeWriter, 1500);
 });
 
-// Add hover sound effect (optional - can be removed if not needed)
-const buttons = document.querySelectorAll(".btn, .skill-card, .project-card");
-buttons.forEach((button) => {
-  button.addEventListener("mouseenter", () => {
-    // Optional: Add sound effect here
-    button.style.transition = "all 3s cubic-bezier(0.4, 0, 0.2, 1)";
-  });
-});
-
 // Lazy load images
 const images = document.querySelectorAll("img");
 const imageObserver = new IntersectionObserver((entries, observer) => {
