@@ -188,32 +188,6 @@ window.addEventListener("scroll", () => {
   });
 });
 
-// Add cursor trail effect (optional enhancement)
-// document.addEventListener("mousemove", (e) => {
-//   const cursor = document.createElement("div");
-//   cursor.style.position = "fixed";
-//   cursor.style.width = "5px";
-//   cursor.style.height = "5px";
-//   cursor.style.borderRadius = "50%";
-//   cursor.style.background = "rgba(45, 122, 79, 0.3)";
-//   cursor.style.left = e.clientX + "px";
-//   cursor.style.top = e.clientY + "px";
-//   cursor.style.pointerEvents = "none";
-//   cursor.style.transition = "all 0.3s ease";
-//   cursor.style.zIndex = "9999";
-
-//   document.body.appendChild(cursor);
-
-//   setTimeout(() => {
-//     cursor.style.opacity = "0";
-//     cursor.style.transform = "scale(2)";
-//   }, 10);
-
-//   setTimeout(() => {
-//     cursor.remove();
-//   }, 300);
-// });
-
 // Active navigation link highlighting
 window.addEventListener("scroll", () => {
   const sections = document.querySelectorAll(".section");
